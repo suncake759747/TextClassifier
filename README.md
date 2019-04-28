@@ -1,5 +1,6 @@
 # TextClassifier
 ### Note all code assumes write privileges for the directory in which the code is run
+### Code is written for python3.6
 ### Code assumes tensorflow, keras, and scikit-learn are installed
 #### tensorflow and keras can be installed via the following command:
 `pip install -r requirements.txt`
