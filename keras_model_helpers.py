@@ -27,9 +27,10 @@ def build_keras_model(batch_size, dropout_rate, embedding_size, max_len, num_epo
     if pretrained_embeddings:
         model.add(Embedding(vocabulary_size, embedding_size, weights=[final_embeddings], input_length=maxlen, trainable=False))
     else:
-        model.add(Embedding(vocabulary_size, embedding_size, input_length=max_len, trainable=True))
+        model.add(Embedding(vocabulary_size, embedding_size, input_length=max_len,
+                            trainable=True))
     model.add(Bidirectional(LSTM(embedding_size, dropout=dropout_rate, recurrent_dropout=dropout_rate)))
-    model.add(Dense(embedding_size, activation='selu'))
+    model.add(Dense(int(embedding_size/2), activation='selu'))
     model.add(Dropout(rate = dropout_rate))
     model.add(Dense(7, activation='softmax'))
 
@@ -69,7 +70,7 @@ def generate_batches(file, vocab_processor, batch_size, label_mapping):
     
 def generate_keras_batches(file, num_epochs, vocab_processor, label_mapping, batch_size=config.batch_size,
                            max_words_per_doc=config.max_len):
-    for epoch in range(num_epochs):
+    while 1:
         batches = generate_batches(file, vocab_processor, batch_size, label_mapping)
         for x_batch, y_batch, _ in batches:
                 yield (x_batch[:,:max_words_per_doc], y_batch)

@@ -44,6 +44,6 @@ def split_data(input_file):
     total_test_samples = X_test.shape[0]
     total_validation_samples = X_val.shape[0]
 
-    label_mapping = dict(sorted(list((x[1], x[0]) for x in enumerate(X_train['product_group'].unique()))))
-   
+    label_mapping = dict(list((x[1], x[0]) for x in enumerate(sorted(X_train['product_group'].unique()))))
+                         
     return label_mapping, total_training_samples, total_validation_samples, total_test_samples
